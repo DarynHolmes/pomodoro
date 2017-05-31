@@ -28,7 +28,7 @@
             <div>
                 <button :disabled="state === 'started'" v-on:click="stateChanged('started')" >start</button>
                 <button :disabled="state !== 'started'" v-on:click="stateChanged('pasued')">pause</button>
-                <button :disabled="state !== 'started' && state !== 'paused'" v-on:statechanged="stateChanged('stopped')">stop</button>
+                <button :disabled="state !== 'started' && state !== 'paused'" v-on:click="stateChanged('stopped')">stop</button>
             </div>
         </template>
         
