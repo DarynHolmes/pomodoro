@@ -14,6 +14,27 @@ const PLAYER_STATES = {
 const WORKING_TIME_LENGTH_IN_SECONDS = 10
 const RESTING_TIME_LENGTH_IN_SECONDS = 10
 
+Vue.component('pomodoro-time', {
+    template: '#pomodoro-time',
+    props: [ 'timeLeft' ],
+    computed: {
+        displayTime: function () {
+            return moment.utc(this.timeLeft.as('milliseconds')).format('HH:mm:ss')
+        }
+    }
+})
+
+Vue.component('controls', {
+    template: '#controls',
+    props: [ 'state' ],
+    methods: {
+        stateChanged: function (newState) {
+            console.log('controls state', this.state, newState)
+            this.$emit('state-changed', newState)
+        }
+    }
+})
+
 new Vue({
     el: '#app',
     data: {
@@ -27,6 +48,20 @@ new Vue({
         }
     },
     methods: {
+        stateChanged: function(state) {
+            console.log('app state', this.playerState, state)
+            switch(state) {
+                case 'started':
+                    this.start()
+                    break
+                case 'paused':
+                    this.pause()
+                    break
+                case 'stopped':
+                    this.stop()
+                    break
+            }
+        },
         start: function() {
             this.playerState = PLAYER_STATES.STARTED
             this._tick()

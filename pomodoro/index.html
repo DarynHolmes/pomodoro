@@ -11,14 +11,26 @@
     </head>
     <body>
         <div v-cloak id="app">
-            <button @click="start()" :disabled="playerState === 'started'" >start</button>
-            <button @click="pause()" :disabled="playerState !== 'started'">pause</button>
-            <button @click="stop()" :disabled="playerState !== 'started' && playerState !== 'paused'">stop</button>
-            <div>{{time}}</div>
+            
+            <pomodoro-time :time-left="countdown"></pomodoro-time>
+            <controls :state="playerState" v-on:state-changed="stateChanged"></controls>
+            <!--<div>{{time}}</div>-->
             <div>{{playerState}}</div>
             <div>{{pomodoroState}}</div>
             <a v-if="pomodoroState === 'rest'" href="http://thecatapi.com"><img src="http://thecatapi.com/api/images/get?format=src&type=gif"></a>
         </div>
+
+        <template id="pomodoro-time">
+            <h3>{{displayTime}}</h3>
+        </template>
+
+        <template id="controls">
+            <div>
+                <button :disabled="state === 'started'" v-on:click="stateChanged('started')" >start</button>
+                <button :disabled="state !== 'started'" v-on:click="stateChanged('pasued')">pause</button>
+                <button :disabled="state !== 'started' && state !== 'paused'" v-on:statechanged="stateChanged('stopped')">stop</button>
+            </div>
+        </template>
         
     </body>
 </html>
