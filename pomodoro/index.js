@@ -73,6 +73,7 @@ new Vue({
         },
         stop: function() {
             this.playerState = PLAYER_STATES.STOPPED
+            pomodoroState: POMODORO_STATES.WORK
             clearInterval(this.interval)
             this.countdown = moment.duration(WORKING_TIME_LENGTH_IN_SECONDS, 'seconds')
         },
