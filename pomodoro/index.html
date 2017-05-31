@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="style.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.js"></script>
+        <script src="./index.js"></script>
+    </head>
+    <body>
+        <div v-cloak id="app">
+            <button @click="start()" :disabled="playerState === 'started'" >start</button>
+            <button @click="pause()" :disabled="playerState !== 'started'">pause</button>
+            <button @click="stop()" :disabled="playerState !== 'started' && playerState !== 'paused'">stop</button>
+            <div>{{time}}</div>
+            <div>{{playerState}}</div>
+            <div>{{pomodoroState}}</div>
+            <a v-if="pomodoroState === 'rest'" href="http://thecatapi.com"><img src="http://thecatapi.com/api/images/get?format=src&type=gif"></a>
+        </div>
+        
+    </body>
+</html>
